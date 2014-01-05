@@ -300,7 +300,9 @@ static NSMutableDictionary * AFKeychainQueryDictionaryWithIdentifier(NSString *i
     }
     
     if (status != errSecSuccess) {
+        #ifdef DEBUG
         NSLog(@"Unable to %@ credential with identifier \"%@\" (Error %li)", exists ? @"update" : @"add", identifier, (long int)status);
+        #endif
     }
     
     return (status == errSecSuccess);
@@ -312,7 +314,9 @@ static NSMutableDictionary * AFKeychainQueryDictionaryWithIdentifier(NSString *i
     OSStatus status = SecItemDelete((__bridge CFDictionaryRef)queryDictionary);
     
     if (status != errSecSuccess) {
+        #ifdef DEBUG
         NSLog(@"Unable to delete credential with identifier \"%@\" (Error %li)", identifier, (long int)status);
+        #endif
     }
     
     return (status == errSecSuccess);
@@ -327,7 +331,9 @@ static NSMutableDictionary * AFKeychainQueryDictionaryWithIdentifier(NSString *i
     OSStatus status = SecItemCopyMatching((__bridge CFDictionaryRef)queryDictionary, (CFTypeRef *)&result);
     
     if (status != errSecSuccess) {
+        #ifdef DEBUG
         NSLog(@"Unable to fetch credential with identifier \"%@\" (Error %li)", identifier, (long int)status);
+        #endif
         return nil;
     }
     
